@@ -2,7 +2,12 @@ import requests
 
 USER = "bartkepl"
 
-repos = requests.get(f"https://api.github.com/users/{USER}/repos").json()
+response = requests.get(f"https://api.github.com/users/{USER}/repos")
+
+if response.status_code != 200:
+    raise Exception("GitHub API error")
+
+repos = response.json()
 
 repos = sorted(
     [r for r in repos if r["name"] != f"{USER}.github.io"],
@@ -14,9 +19,9 @@ html_blocks = []
 
 for repo in repos:
     name = repo["name"]
-    desc = repo["description"] or "No description"
+    desc = repo.get("description") or "No description"
     repo_url = repo["html_url"]
-    has_pages = repo["has_pages"]
+    has_pages = repo.get("has_pages", False)
 
     links = f'''
         <a href="{repo_url}" target="_blank">
@@ -43,14 +48,14 @@ for repo in repos:
 
 projects_html = "\n".join(html_blocks)
 
-with open("index.html", "r", encoding="utf-8") as f:
-    content = f.read()
-
 START = "<!-- GENERATED_PROJECTS_START -->"
 END = "<!-- GENERATED_PROJECTS_END -->"
 
 with open("index.html", "r", encoding="utf-8") as f:
     content = f.read()
+
+if START not in content or END not in content:
+    raise Exception("Markers not found in index.html")
 
 start_idx = content.index(START) + len(START)
 end_idx = content.index(END)
@@ -63,8 +68,5 @@ new_content = (
 
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(new_content)
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(content)
 
 print("Generated index.html")
