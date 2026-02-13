@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bartek | GitHub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bartek | GitHub</title>
 
-    <!-- Ikony (Font Awesome CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #2b5876);
-            color: white;
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #1e1e2f, #2b5876);
+    color: white;
+    text-align: center;
+}
 
-        .container {
-            padding: 50px 20px;
-        }
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
 
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
+.github-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1.3em;
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
 
-        p {
-            font-size: 1.2em;
-            opacity: 0.8;
-        }
+.github-link:hover {
+    background: white;
+    color: #2b5876;
+}
 
-        .github-link {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 1.3em;
-            color: white;
-            text-decoration: none;
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
+.container {
+    padding: 50px 20px;
+}
 
-        .github-link:hover {
-            background: white;
-            color: #2b5876;
-        }
+.projects {
+    margin-top: 40px;
+}
 
-        .projects {
-            margin-top: 50px;
-        }
+.project {
+    background: rgba(255,255,255,0.1);
+    margin: 10px auto;
+    padding: 15px;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: left;
+    transition: 0.3s;
+}
 
-        .project-card {
-            background: rgba(255,255,255,0.1);
-            margin: 10px auto;
-            padding: 15px;
-            max-width: 400px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
+.project:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+}
 
-        .project-card:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.02);
-        }
+.project a {
+    color: #00d4ff;
+    margin-right: 10px;
+}
 
-        a {
-            color: #00d4ff;
-            text-decoration: none;
-        }
-    </style>
+.loader {
+    margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
@@ -83,21 +83,13 @@
     </a>
 
     <div class="projects">
-        <h2>🚀 Projects</h2>
-
-        <div class="project-card">
-            <h3>RDE_board</h3>
-            <p>Eurocard format Resistor DEcade </p>
-            <a href="https://github.com/bartkepl/RDE_board">View project</a>
+    <h2>🚀 Projects</h2>
+        <div id="repo-list">
+            <!-- GENERATED_PROJECTS_START -->
+            <!-- GENERATED_PROJECTS_END -->
         </div>
-
-        <div class="project-card">
-            <h3>SCA_board</h3>
-            <p>Standalone eurocard connector adapter</p>
-            <a href="https://github.com/bartkepl/SCA_board">View project</a>
-        </div>
-
     </div>
+</div>
 </div>
 
 </body>
