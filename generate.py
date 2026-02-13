@@ -1,7 +1,9 @@
 import requests
+from datetime import datetime
 
 USER = "bartkepl"
 
+# Pobranie listy repo
 response = requests.get(f"https://api.github.com/users/{USER}/repos")
 
 if response.status_code != 200:
@@ -9,12 +11,14 @@ if response.status_code != 200:
 
 repos = response.json()
 
+# Sortowanie po ostatniej aktualizacji
 repos = sorted(
     [r for r in repos if r["name"] != f"{USER}.github.io"],
     key=lambda x: x["updated_at"],
     reverse=True
 )
 
+# ===== Generowanie bloków HTML =====
 html_blocks = []
 
 for repo in repos:
@@ -48,6 +52,7 @@ for repo in repos:
 
 projects_html = "\n".join(html_blocks)
 
+# ===== Wstawienie bloków HTML do index.html =====
 START = "<!-- GENERATED_PROJECTS_START -->"
 END = "<!-- GENERATED_PROJECTS_END -->"
 
@@ -60,13 +65,47 @@ if START not in content or END not in content:
 start_idx = content.index(START) + len(START)
 end_idx = content.index(END)
 
-new_content = (
-    content[:start_idx] +
-    "\n" + projects_html + "\n" +
-    content[end_idx:]
-)
+new_content = content[:start_idx] + "\n" + projects_html + "\n" + content[end_idx:]
 
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(new_content)
 
 print("Generated index.html")
+
+# ===== Generowanie sitemap.xml =====
+sitemap_entries = []
+
+# Strona główna
+sitemap_entries.append(f"""
+<url>
+    <loc>https://{USER}.github.io/</loc>
+    <lastmod>{datetime.utcnow().date()}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+</url>
+""")
+
+# Repo z GitHub Pages
+for repo in repos:
+    if repo.get("has_pages", False):
+        name = repo["name"]
+        updated = repo["updated_at"][:10]  # yyyy-mm-dd
+        sitemap_entries.append(f"""
+<url>
+    <loc>https://{USER}.github.io/{name}</loc>
+    <lastmod>{updated}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+</url>
+""")
+
+sitemap_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{''.join(sitemap_entries)}
+</urlset>
+"""
+
+with open("sitemap.xml", "w", encoding="utf-8") as f:
+    f.write(sitemap_content)
+
+print("Generated sitemap.xml")

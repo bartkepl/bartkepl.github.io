@@ -1,7 +1,7 @@
 name: Generate GitHub Pages
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # ręczne uruchomienie
 
 permissions:
   contents: write
@@ -22,13 +22,13 @@ jobs:
       - name: Install requests
         run: pip install requests
 
-      - name: Generate page
+      - name: Generate page & sitemap
         run: python generate.py
 
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add index.html
-          git commit -m "Auto update projects" || echo "No changes"
+          git add index.html sitemap.xml
+          git commit -m "Auto update projects & sitemap" || echo "No changes"
           git push
