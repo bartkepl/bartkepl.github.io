@@ -1,0 +1,52 @@
+name: Build & Deploy Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate site (HTML + sitemap)
+        run: python generate.py
+
+      # (opcjonalnie commit)
+      #- name: Commit generated files
+      #  run: |
+      #    git config user.name "github-actions"
+      #    git config user.email "actions@github.com"
+      #    git add index.html sitemap.xml
+      #    git commit -m "Auto update site" || echo "No changes"
+      #    git push
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
