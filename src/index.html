@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ meta_description }}">
+{{ verification_meta }}
+<link rel="canonical" href="{{ site_url }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:url" content="{{ site_url }}">
+<meta name="theme-color" content="#0e2a21">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&family=Michroma&display=swap">
+<link rel="stylesheet" href="style.css?v={{ asset_version }}">
+<script>
+  document.documentElement.classList.add("js");
+  try {
+    var theme = localStorage.getItem("theme");
+    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+  } catch (e) {}
+</script>
+<script src="app.js?v={{ asset_version }}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#projects">Skip to projects</a>
+
+<header class="hero">
+  <svg class="hero-traces" viewBox="0 0 1440 560" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+    <g class="traces">
+      <path d="M560 96H700L760 36H1440"/>
+      <path d="M620 150H790L840 100H1440"/>
+      <path d="M700 560V470L760 410H1440"/>
+      <path d="M600 560V500L660 440H900L950 390H1440"/>
+      <path d="M1020 0V60L1060 100"/>
+      <path d="M1140 0V40L1200 100"/>
+      <path d="M860 560V520L900 480H1440"/>
+      <path d="M520 330H640L700 270H760"/>
+      <path d="M1260 560V510L1300 470"/>
+    </g>
+    <g class="vias">
+      <circle cx="560" cy="96" r="7"/>
+      <circle cx="620" cy="150" r="7"/>
+      <circle cx="1060" cy="100" r="7"/>
+      <circle cx="1200" cy="100" r="7"/>
+      <circle cx="520" cy="330" r="7"/>
+      <circle cx="760" cy="270" r="7"/>
+      <circle cx="1300" cy="470" r="7"/>
+    </g>
+  </svg>
+
+  <button class="theme-toggle" type="button" data-theme-toggle hidden>
+    <svg class="icon-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.5v2.2M10 16.3v2.2M1.5 10h2.2M16.3 10h2.2M4 4l1.6 1.6M14.4 14.4 16 16M4 16l1.6-1.6M14.4 5.6 16 4"/></svg>
+    <svg class="icon-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A7 7 0 0 1 7.4 3.5a7 7 0 1 0 9.1 9.1Z"/></svg>
+  </button>
+
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <h1 class="hero-name">{{ name }}</h1>
+      <p class="hero-role">{{ role }}</p>
+      <p class="hero-intro">{{ intro }}</p>
+      <nav class="hero-links" aria-label="Profiles">{{ links }}</nav>
+    </div>
+
+    <figure class="display">
+      <div class="display-glass" aria-hidden="true" data-readout>
+        <p class="line line-query"><span class="prompt">&gt;</span> <span data-type>*IDN?</span></p>
+        <p class="line line-reply">{{ idn_reply }}</p>
+        <p class="line line-query"><span class="prompt">&gt;</span> <span data-type>PROJ:CAT?</span></p>
+        <p class="line line-reply">{{ category_reply }}</p>
+        <p class="line line-query line-idle"><span class="prompt">&gt;</span> <span class="cursor"></span></p>
+      </div>
+      <figcaption class="sr-only">{{ readout_summary }}</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main id="projects" class="projects" tabindex="-1">
+  <div class="toolbar">
+    <div class="wrap toolbar-inner">
+      <h2 class="projects-title">Projects</h2>
+      <fieldset class="filters">
+        <legend class="sr-only">Category</legend>
+        {{ filters }}
+      </fieldset>
+      <div class="controls">
+        <label class="search">
+          <span class="sr-only">Search projects</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.8"/><path d="m10.6 10.6 3.6 3.6"/></svg>
+          <input type="search" placeholder="Search projects" autocomplete="off" spellcheck="false" data-search>
+        </label>
+        <label class="sort">
+          <span class="sr-only">Sort projects</span>
+          <select data-sort>
+            <option value="updated">Recently updated</option>
+            <option value="created">Newest</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="sr-only" aria-live="polite" data-status></p>
+    <ul class="grid" data-grid>
+{{ cards }}
+    </ul>
+    <div class="empty" data-empty hidden>
+      <p>No project matches this search.</p>
+      <button class="button" type="button" data-reset>Show all {{ project_total }} projects</button>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p>Project list generated from GitHub on <time datetime="{{ built_iso }}">{{ built_human }}</time>.</p>
+    <a href="{{ profile_url }}">{{ profile_label }}</a>
+  </div>
+</footer>
+</body>
+</html>

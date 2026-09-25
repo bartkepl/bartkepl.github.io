@@ -1,0 +1,59 @@
+# Settings for generate.py. Every public repository of `site.user` is listed
+# automatically; this file only tunes texts, categories and single projects.
+
+[site]
+user = "bartkepl"
+url = "https://bartkepl.github.io/"
+name = "Bartek"
+role = "Embedded and test & measurement developer"
+intro = "I design instrument boards in KiCad, write STM32 firmware and build the desktop and mobile apps that talk to them."
+page_title = "Bartek | Embedded and T&M projects"
+description = "Bartek, embedded developer (STM32, test & measurement, C, Python, C#, Flutter). Hardware designs and software projects."
+# Second field of the *IDN? reply shown in the header display.
+idn_model = "EMBEDDED T&M"
+google_site_verification = "1X_UgTBYvwpuarb2C2cY6I_9Y4VjMRMJHKjwEmysfiw"
+
+[[site.links]]
+label = "GitHub"
+url = "https://github.com/bartkepl"
+icon = "github"
+
+[repos]
+include_forks = true
+include_archived = true
+exclude = ["bartkepl.github.io"]
+
+# Categories are tried in order and the first match wins. A repository matches when
+# one of its GitHub topics is in `topics`, a whole word from `keywords` appears in
+# its name or GitHub description, or a file path matches a regex from `files`.
+# The category marked `default` takes everything else.
+# Cards in the "hardware" category get the gold edge-connector strip.
+[[categories]]
+id = "tools"
+label = "Tools"
+topics = ["tool", "plugin", "template", "library"]
+keywords = ["action plugin", "kicad plugin", "plugin for", "template", "library"]
+
+[[categories]]
+id = "hardware"
+label = "Hardware"
+topics = ["hardware", "pcb", "kicad-project"]
+files = ['\.kicad_pro$']
+
+[[categories]]
+id = "software"
+label = "Software"
+default = true
+
+# Per-project overrides, keyed by repository name. Available fields:
+#   title       display name instead of the repository name
+#   description replaces the GitHub description / README summary
+#   category    one of the category ids above
+#   image       path inside the repo or full URL; false hides the preview
+#   website     URL; false hides the website link
+#   tags        list that replaces the detected tags
+#   pinned      true shows the project first
+#   hidden      true leaves the project out
+[projects.MouseJigglerConfig]
+description = "WebUSB configurator for the STM32C0 mouse jiggler. Sets the move interval and distance straight from Chrome or Edge, with no app to install."
+tags = ["WebUSB", "JavaScript"]
