@@ -5,12 +5,12 @@
 user = "bartkepl"
 url = "https://bartkepl.github.io/"
 name = "Bartek"
-role = "Embedded and test & measurement developer"
-intro = "I design instrument boards in KiCad, write STM32 firmware and build the desktop and mobile apps that talk to them."
-page_title = "Bartek | Embedded and T&M projects"
-description = "Bartek, embedded developer (STM32, test & measurement, C, Python, C#, Flutter). Hardware designs and software projects."
+role = "Hardware & software developer"
+intro = "I design electronics, develop embedded software and build applications that bring hardware to life."
+page_title = "Bartek | Hardware and software projects"
+description = "Bartek, hardware & embedded developer (electronics, STM32, C, Python, C#, Flutter). Hardware designs, firmware and software applications."
 # Second field of the *IDN? reply shown in the header display.
-idn_model = "EMBEDDED T&M"
+idn_model = "HARDWARE_SOFTWARE"
 google_site_verification = "1X_UgTBYvwpuarb2C2cY6I_9Y4VjMRMJHKjwEmysfiw"
 
 [[site.links]]
